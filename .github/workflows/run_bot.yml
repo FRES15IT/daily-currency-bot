@@ -1,0 +1,29 @@
+name: Daily Currency Parser
+
+on:
+  schedule:
+    # Запуск каждый день в 06:00 по UTC (в 09:00 по Москве)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Позволяет запускать бота вручную кнопкой на сайте
+
+jobs:
+  run-parser:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Проверка репозитория
+      uses: actions/checkout@v3
+
+    - name: Настройка Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Установка библиотек
+      run: pip install requests
+
+    - name: Запуск скрипта
+      env:
+        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python parser.py
