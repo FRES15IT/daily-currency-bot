@@ -76,5 +76,3 @@ if __name__ == "__main__":
     except Exception as e:
         write_log("\n💥 КРИТИЧЕСКИЙ КРАШ СИСТЕМЫ!\n")
         write_log(traceback.format_exc())
-        
-    input("\nСкрипт отработал. Нажми Enter для выхода...")
